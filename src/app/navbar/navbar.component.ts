@@ -8,6 +8,9 @@
 
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
@@ -15,9 +18,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+    login$: Observable<boolean>;
     constructor() { }
 
     ngOnInit() {
+        this.login$ = Observable.of(true);
+    }
+
+    logout() {
+        this.login$ = Observable.of(false);
     }
 
 }

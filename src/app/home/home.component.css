@@ -1,0 +1,26 @@
+.bg {
+  height: 400px;
+  background: url(https://images.pexels.com/photos/731658/pexels-photo-731658.jpeg?w=940&h=650&auto=compress&cs=tinysrgb) no-repeat center bottom;
+  background-position: cover;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+ 
+.bg::before {
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    height: 100vh;
+}
+
+.bg-title {
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+

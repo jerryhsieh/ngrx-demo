@@ -1,0 +1,10 @@
+
+.navbar {
+  width: 100%;
+  color: white;
+}
+
+
+.to-right {
+  flex: 1 1 auto;
+}
