@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { ShareModule } from './share/share.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { ShareModule } from './share/share.module';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        ShareModule
+        ShareModule,
+        UserModule
     ],
     providers: [],
     bootstrap: [AppComponent]

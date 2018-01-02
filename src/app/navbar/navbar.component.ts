@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.login$ = Observable.of(true);
+        //this.login$ = Observable.of(true);
     }
 
     logout() {

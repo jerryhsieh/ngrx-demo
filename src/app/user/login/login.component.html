@@ -1,0 +1,36 @@
+
+<div class="container">
+  <mat-card fxFlex class="login-card">
+    <mat-card-title class="title">登入</mat-card-title>
+    <form [formGroup]="form" (ngSubmit)="login()" novalidate>            
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput placeholder="使用者名稱" formControlName="username" required>
+          <div *ngIf="username.invalid && (username.dirty && username.touched)">
+            <mat-error *ngIf="username.errors.required">請輸入使用者名稱</mat-error>
+            <mat-error *ngIf="username.errors.pattern">請輸入至少五個字母，數字</mat-error>            
+          </div>
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input matInput type="password" placeholder="密碼" formControlName="password" required>
+          <div *ngIf="password.invalid && (password.dirty && password.touched)">
+            <mat-error *ngIf="password.errors.required">請輸入密碼</mat-error>
+            <mat-error *ngIf="password.errors.pattern">請輸入至少五個字母，數字</mat-error>                        
+          </div>          
+        </mat-form-field>
+
+        <div>
+          <mat-checkbox formControlName="rememberMe" class="chk">記得我</mat-checkbox>
+        </div>
+        
+      </mat-card-content>
+
+      <mat-card-actions class="btn-center">
+        <button mat-raised-button type="submit" [disabled]="!form.valid">登入</button>
+        <button mat-raised-button type="cancel">取消</button>                      
+      </mat-card-actions>
+    </form>                  
+  </mat-card>
+</div>
+
