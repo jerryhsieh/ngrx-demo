@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatCheckboxModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatIconModule, MatMenuModule, MatSnackBarModule } from '@angular/material';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppConfig } from './app.config';
 
 @NgModule({
     imports: [
@@ -15,6 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatFormFieldModule,
         MatCheckboxModule,
         MatInputModule,
+        MatMenuModule,
+        MatIconModule,
+        MatSnackBarModule,
         ReactiveFormsModule
     ],
     exports: [
@@ -24,8 +28,13 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatFormFieldModule,
         MatCheckboxModule,
         MatInputModule,
+        MatMenuModule,
+        MatIconModule,
+        MatSnackBarModule,
         ReactiveFormsModule
     ],
-    declarations: []
+    declarations: [],
+    providers: [AppConfig]
 })
 export class ShareModule { }
+

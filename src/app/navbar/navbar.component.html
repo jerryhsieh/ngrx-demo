@@ -2,5 +2,14 @@
   <a mat-button routerLink="/">洋蔥投顧</a>
   <span class="to-right"></span>
   <a mat-button *ngIf="!(login$| async)" routerLink="/user/login">會員登入</a>
-  <a mat-button *ngIf="login$ | async" (click)="logout()">會員登出</a>  
+  <a mat-button *ngIf="login$ | async" routerLink="">會員中心</a>
+  <button *ngIf="user$ | async " mat-button [matMenuTriggerFor]="userMenu">
+    <span>{{user$ | async}}</span> <mat-icon>arrow_drop_down</mat-icon>
+  </button>      
 </mat-toolbar>
+<!-- User sub menu -->
+<mat-menu x-position="before" #userMenu="matMenu">
+  <button mat-menu-item >帳號</button>
+  <button mat-menu-item (click)="logout()" >會員登出</button>
+</mat-menu>
+
