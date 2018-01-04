@@ -35,12 +35,10 @@ export class UserService {
         return this.loginServer(loginData)
             .map((res: Response) => {
                 if (res.success) {
-                    console.log('got login status', res);
                     this.loginStatus.next(true);
                     this.currentUser.next(loginData.username);
                     return true;
                 } else {
-                    console.log('can not login');
                     return false;
                 }
             },

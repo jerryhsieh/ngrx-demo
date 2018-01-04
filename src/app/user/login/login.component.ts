@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
         this.userService.login(this.form.value)
             .subscribe(res => {
                 if (res) {
-                    this.snackbar.open('登入成功', 'OK');
+                    this.snackbar.open('登入成功', 'OK', { duration: 3000 });
                 } else {
-                    this.snackbar.open('請檢查使用者名稱及密碼', 'OK');
+                    this.snackbar.open('請檢查使用者名稱及密碼', 'OK', { duration: 3000 });
                 }
 
             })
