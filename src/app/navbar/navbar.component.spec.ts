@@ -1,10 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 
 import { ShareModule } from '../share/share.module';
 import { NavbarComponent } from './navbar.component';
+import { Router } from '@angular/router';
+import { UserService } from '../user/service/user.service';
+
+// mocked up service
+class UserServiceStub {
+    getLoginStatus = jasmine.createSpy('getLoginStatus')
+        .and.returnValue(Observable.of(true));
+
+    getCurrentUser = jasmine.createSpy('getCurrentUser')
+        .and.returnValue(Observable.of('Jerry'));
+
+    logout = jasmine.createSpy('logout')
+        .and.returnValue(true);
+}
+
+class RouterStub {
+    navigateByUrl(url: string) { return url; }
+}
 
 describe('NavbarComponent', () => {
     let component: NavbarComponent;
@@ -14,7 +33,12 @@ describe('NavbarComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ShareModule],
-            declarations: [NavbarComponent]
+            declarations: [NavbarComponent],
+            providers: [
+                { provide: UserService, useClass: UserServiceStub },
+                { provide: Router, useClass: RouterStub }
+            ]
+
         })
             .compileComponents();
     }));

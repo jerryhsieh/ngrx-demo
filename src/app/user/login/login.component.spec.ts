@@ -4,6 +4,27 @@ import { LoginComponent } from './login.component';
 import { ShareModule } from '../../share/share.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { Observable } from 'rxjs/Observable';
+import { UserService } from '../service/user.service';
+
+// mocked up service
+class UserServiceStub {
+    getLoginStatus = jasmine.createSpy('getLoginStatus')
+        .and.returnValue(Observable.of(true));
+
+    getCurrentUser = jasmine.createSpy('getCurrentUser')
+        .and.returnValue(Observable.of('Jerry'));
+
+    logout = jasmine.createSpy('logout')
+        .and.returnValue(true);
+}
+
+class RouterStub {
+    navigateByUrl(url: string) { return url; }
+}
+
+
+
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
@@ -11,7 +32,10 @@ describe('LoginComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ShareModule, BrowserAnimationsModule],
-            declarations: [LoginComponent]
+            declarations: [LoginComponent],
+            providers: [
+                { provide: UserService, useClass: UserServiceStub }
+            ]
         })
             .compileComponents();
     }));
