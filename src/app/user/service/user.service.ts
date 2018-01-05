@@ -16,13 +16,16 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { of } from 'rxjs/observable/of';
 
+import { UtilsService } from '../../services';
+
 @Injectable()
 export class UserService {
     loginStatus = new BehaviorSubject<boolean>(false);
     currentUser = new BehaviorSubject<User>(null);
     constructor(
         private http: HttpClient,
-        private appConfig: AppConfig
+        private appConfig: AppConfig,
+        private utils: UtilsService
     ) { }
 
     loginServer(loginData): Observable<Response> {
@@ -37,6 +40,9 @@ export class UserService {
                 if (res.success) {
                     this.loginStatus.next(true);
                     this.currentUser.next(loginData.username);
+                    if (loginData.rememberMe) {
+                        this.utils.writeToken(res.payload);
+                    }
                     return true;
                 } else {
                     return false;
@@ -54,6 +60,7 @@ export class UserService {
     logout() {
         this.loginStatus.next(false);
         this.currentUser.next(null);
+        this.utils.removeToken();
     }
 
     getLoginStatus(): Observable<boolean> {
@@ -62,6 +69,18 @@ export class UserService {
 
     getCurrentUser(): Observable<User> {
         return this.currentUser;
+    }
+
+    // when startup
+    checkUser(): Observable<boolean> {
+        if (!this.utils.isTokenExpired()) {
+            this.loginStatus.next(true);
+            return of(true);
+        } else {
+            console.log('no token or token is expired');
+            this.utils.removeToken();
+            return of(false);
+        }
     }
 
 }
