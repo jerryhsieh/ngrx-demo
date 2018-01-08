@@ -1,0 +1,41 @@
+.center {
+  display:blcok;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  margin-top: 15px;
+  min-width: 300px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card-header {
+  min-height: 50px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.avatar-text {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: #eee;
+  
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+

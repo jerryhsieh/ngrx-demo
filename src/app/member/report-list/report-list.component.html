@@ -1,0 +1,20 @@
+<div class="container">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutWrap>
+    <mat-card fxFlex [ngStyle.gt-sm]="{'max-width': 'calc(25% - 20px)'}"  *ngFor="let report of (reports$ | async)" class="card" (click) ="onClick(report)">
+      <mat-card-header fxLayout = "row" fxLayoutAlign="start" class="card-header" fxLayoutGap="10px">
+        <div class="avatar-text">
+          {{report.master.charAt(0)}}
+        </div>
+        <div fxFlex= "70%">{{report.title}}</div>
+      </mat-card-header>      
+      <img mat-card-image alt="report image" src="{{report.image}}"/>
+      <mat-card-content fxLayout="column">
+        {{ report.report.slice(0, 50) + '...'}}        
+      </mat-card-content>
+      <mat-card-footer>
+        {{report.master}}        
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+

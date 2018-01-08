@@ -16,6 +16,7 @@ const routes: Routes = [{
     children: [
         { path: 'home', component: HomeComponent },
         { path: 'user', redirectTo: '/user', pathMatch: 'full' },
+        { path: 'member', loadChildren: './member/member.module#MemberModule' },
         { path: '', redirectTo: '/home', pathMatch: 'full' },
     ]
 }];
@@ -23,7 +24,7 @@ const routes: Routes = [{
 @NgModule({
     imports: [RouterModule.forRoot(
         routes,
-        //{ enableTracing: true }
+        { enableTracing: true }
     )],
     exports: [RouterModule]
 })
