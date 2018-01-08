@@ -39,11 +39,10 @@ export class StartupService {
     }
 
     checkStatus() {
-        if (this.utils.isTokenExpired()) {   // if token expired
+        if (this.utils.isTokenExpired()) {   // if token expired or not exist
             this.userService.logout();
             const router = this.injector.get(Router);
             router.navigate(['/']);
-            console.log('logout due to token expired');
         }
     }
 
