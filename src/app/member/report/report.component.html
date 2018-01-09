@@ -1,7 +1,12 @@
-<p>
-  report works!
-</p>
+<div class="container" *ngIf="(report$ | async) as report">
+  <header class="center"><h3>{{report.master}}</h3></header>
 
-<div *ngIf="report$ | async as report">
-  {{report.title }}
+  <section>
+    <img alt="report image" src="{{report.image}}" class="image"/>
+  </section>
+
+  <section>
+    <div class="title">{{ report.title }}</div>
+    <p>{{report.report}}</p>
+  </section>
 </div>

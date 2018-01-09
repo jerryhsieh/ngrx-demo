@@ -23,6 +23,7 @@ import { StartupService } from './services/startup.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './guards/auth.guard';
 
 export function startupServiceFactory(startupService: StartupService): Function { return () => startupService.load(); }
 
@@ -49,14 +50,17 @@ export function startupServiceFactory(startupService: StartupService): Function 
         })
     ],
     providers: [
+        AuthGuard,
         UtilsService,
         StartupService,
         {
             provide: APP_INITIALIZER,
             useFactory: startupServiceFactory,
             deps: [StartupService, Injector],
-            multi: true
-        }
+            multi: true,
+
+        },
+
 
     ],
     bootstrap: [AppComponent]

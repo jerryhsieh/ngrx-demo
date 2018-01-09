@@ -15,7 +15,7 @@ import { Report, Response } from '../../models';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, switchAll, map } from 'rxjs/operators';
 
 @Injectable()
 export class ReportsService {
@@ -58,8 +58,8 @@ export class ReportsService {
 
     getReport(id: number): Observable<Report> {
         return this.reports$.pipe(
-            switchMap(reports => {
-                return of(reports.filter(report => report.id === id)[0]);
+            map(reports => {
+                return reports.filter(report => report.id === id)[0];
             })
         );
     }
