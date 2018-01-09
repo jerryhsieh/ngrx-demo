@@ -1,3 +1,7 @@
 <p>
   report works!
 </p>
+
+<div *ngIf="report$ | async as report">
+  {{report.title }}
+</div>
