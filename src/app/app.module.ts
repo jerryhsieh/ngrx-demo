@@ -25,6 +25,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './guards/auth.guard';
 
+// for ngrx/store
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { environment } from '../environments/environment';
+import * as fromStore from './store';
+
 export function startupServiceFactory(startupService: StartupService): Function { return () => startupService.load(); }
 
 @NgModule({
@@ -40,6 +48,10 @@ export function startupServiceFactory(startupService: StartupService): Function 
         ShareModule,
         UserModule,
         HttpClientModule,
+        StoreModule.forRoot(fromStore.reducers),
+        EffectsModule.forRoot(fromStore.effects),
+        !environment.production ? StoreRouterConnectingModule : [],
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
         JwtModule.forRoot({
             config: {
                 tokenGetter: () => {
