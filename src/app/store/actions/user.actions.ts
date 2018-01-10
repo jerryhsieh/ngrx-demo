@@ -53,17 +53,17 @@ export class LogoutFailAction implements Action {
 }
 
 
-export class getUserAction implements Action {
+export class GetUserAction implements Action {
     readonly type = GETUSER;
 }
 
-export class getUserSuccessAction implements Action {
+export class GetUserSuccessAction implements Action {
     readonly type = GETUSER_SUCCESS;
 
     constructor(public payload: string) { }         // username
 }
 
-export class getUserFailAction implements Action {
+export class GetUserFailAction implements Action {
     readonly type = GETUSER_FAIL;
 
     constructor(public payload: any) { }
@@ -76,6 +76,6 @@ export type UserActions
     | LogoutAction
     | LogoutSuccessAction
     | LogoutFailAction
-    | getUserAction
-    | getUserSuccessAction
-    | getUserFailAction;
+    | GetUserAction
+    | GetUserSuccessAction
+    | GetUserFailAction;
