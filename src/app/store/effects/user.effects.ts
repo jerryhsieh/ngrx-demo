@@ -14,8 +14,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { map, switchMap, filter, catchError } from 'rxjs/operators';
 
-import { UserService } from '../../users/service/user.service';
-import { UtilsService } from '../../helper/utils.service';
+import { UserService } from '../../user/service/user.service';
+import { UtilsService } from '../../services/utils.service';
 import { User, Response } from '../../models';
 import * as actions from '../actions';
 
@@ -32,7 +32,7 @@ export class UserEffects {
     loginEffect$: Observable<Action> = this.action$.ofType(actions.LOGIN).pipe(
         map((action: actions.LoginAction) => action.payload),
         switchMap((user: User) => {
-            return this.userService.loginToServer(user).pipe(
+            return this.userService.loginServer(user).pipe(
                 map((res: Response) => {
                     if (res.success) {
                         if (user.rememberMe) {

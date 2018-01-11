@@ -6,9 +6,9 @@
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
 
-import { UserEffects } from './users.effects';
+import { UserEffects } from './user.effects';
 
 export const effects: any[] = [UserEffects];
 
 
-export * from './users.effects';
+export * from './user.effects';
