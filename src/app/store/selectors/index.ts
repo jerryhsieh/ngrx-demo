@@ -6,6 +6,4 @@
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
 
-
-
-export const selctors = 'Selectors';
+export * from './selectors';

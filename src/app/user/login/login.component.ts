@@ -1,3 +1,4 @@
+
 //
 //
 // File name : login.component.ts
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { UserService } from '../service/user.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 @Component({
     selector: 'app-login',
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
     public form: FormGroup;
     constructor(
         private fb: FormBuilder,
-        private userService: UserService,
+        private store: Store<fromStore.State>,
         private router: Router,
         private snackbar: MatSnackBar
     ) { }
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
     get rememberMe() { return this.form.get('rememberMe') }
 
     login() {
-        this.userService.login(this.form.value)
+        this.store.dispatch(new fromStore.LoginAction(this.form.value));
+        this.store.select(fromStore.getIsLogin)
             .subscribe(res => {
                 if (res) {
                     this.snackbar.open('登入成功', 'OK', { duration: 3000 });
@@ -50,5 +53,4 @@ export class LoginComponent implements OnInit {
 
             })
     }
-
 }

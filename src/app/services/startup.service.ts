@@ -9,8 +9,9 @@ import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UtilsService } from '.';
-import { UserService } from '../user/service/user.service';
-
+import { Store } from '@ngrx/store';
+import * as fromStore from '../store';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class StartupService {
@@ -18,29 +19,37 @@ export class StartupService {
     constructor(
         private injector: Injector,
         private utils: UtilsService,
-        private userService: UserService
+        private store: Store<fromStore.State>
     ) { }
 
     load(): Promise<any> {
         return new Promise((resolve, reject) => {
-            return this.userService.checkUser()
-                .subscribe(res => {
-                    if (res) {
-                        setInterval(() => {
-                            this.checkStatus();
-                        }, 1000 * 60 * 5)    // check current status every 5 min
-                    }
-                    resolve(res);
-                }, err => {
-                    console.log(err);
-                    reject(err);
-                });
+            if (!this.utils.isTokenExpired()) {
+                this.store.dispatch(new fromStore.GetUserAction());
+                return this.store.select(fromStore.getIsLogin)
+                    .pipe(
+                    filter(status => status)
+                    )
+                    .subscribe(res => {
+                        if (res) {
+                            setInterval(() => {
+                                this.checkStatus();
+                            }, 1000 * 60 * 5)    // check current status every 5 min
+                        }
+                        resolve(res);
+                    }, err => {
+                        console.log(err);
+                        reject(err);
+                    });
+            } else {
+                resolve('no token or token expired');
+            }
         });
     }
 
     checkStatus() {
         if (this.utils.isTokenExpired()) {   // if token expired or not exist
-            this.userService.logout();
+            this.store.dispatch(new fromStore.LogoutAction());
             const router = this.injector.get(Router);
             router.navigate(['/']);
         }

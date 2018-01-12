@@ -10,7 +10,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Router, Route } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { UserService } from '../user/service/user.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../store';
 import { tap, take } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
@@ -19,10 +20,10 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     loginStatus$: Observable<boolean>
     constructor(
-        private userService: UserService,
+        private store: Store<fromStore.State>,
         private router: Router
     ) {
-        this.loginStatus$ = userService.getLoginStatus();
+        this.loginStatus$ = this.store.select(fromStore.getIsLogin);
     }
 
     canActivate(

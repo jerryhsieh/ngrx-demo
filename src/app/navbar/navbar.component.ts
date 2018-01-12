@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { UserService } from '../user/service/user.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../store';
 import { User } from '../models';
 
 @Component({
@@ -23,21 +24,20 @@ import { User } from '../models';
 export class NavbarComponent implements OnInit {
 
     login$: Observable<boolean>;
-    user$: Observable<User>;
+    user$: Observable<string>;
     constructor(
-        private userService: UserService,
+        private store: Store<fromStore.State>,
         private router: Router
     ) { }
 
     ngOnInit() {
-        //this.login$ = Observable.of(true);
-        this.login$ = this.userService.getLoginStatus();
-        this.user$ = this.userService.getCurrentUser();
+        this.login$ = this.store.select(fromStore.getIsLogin);
+        this.user$ = this.store.select(fromStore.getCurrentUser);
     }
 
     logout() {
-        //this.login$ = Observable.of(false);
-        this.userService.logout();
+
+        this.store.dispatch(new fromStore.LogoutAction());
         this.router.navigate(['/'])
     }
 
