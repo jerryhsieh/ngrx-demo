@@ -9,14 +9,19 @@
 import { ActionReducerMap } from '@ngrx/store';
 
 import * as user from './user.reducers';
+import * as router from './router.reducers';
 
 export interface State {
-    user: user.UsersState
+    user: user.UsersState;
+    router: router.RouterState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    user: user.reducer
+    user: user.reducer,
+    router: router.reducer
 }
+
+export { CustomeSerializer } from './router.reducers';
 
 
 

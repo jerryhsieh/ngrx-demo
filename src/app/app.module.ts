@@ -72,8 +72,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
             multi: true,
 
         },
-
-
+        { provide: RouterStateSerializer, useClass: fromStore.CustomeSerializer }
     ],
     bootstrap: [AppComponent]
 })

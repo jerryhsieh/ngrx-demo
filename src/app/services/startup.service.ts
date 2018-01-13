@@ -5,8 +5,7 @@
 //
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
-import { Injectable, Injector } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 import { UtilsService } from '.';
 import { Store } from '@ngrx/store';
@@ -17,7 +16,6 @@ import { filter } from 'rxjs/operators';
 export class StartupService {
 
     constructor(
-        private injector: Injector,
         private utils: UtilsService,
         private store: Store<fromStore.State>
     ) { }
@@ -50,8 +48,7 @@ export class StartupService {
     checkStatus() {
         if (this.utils.isTokenExpired()) {   // if token expired or not exist
             this.store.dispatch(new fromStore.LogoutAction());
-            const router = this.injector.get(Router);
-            router.navigate(['/']);
+            this.store.dispatch(new fromStore.Go({ path: ['/'] }));
         }
     }
 

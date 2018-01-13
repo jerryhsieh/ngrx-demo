@@ -7,7 +7,6 @@
 //
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -26,8 +25,7 @@ export class NavbarComponent implements OnInit {
     login$: Observable<boolean>;
     user$: Observable<string>;
     constructor(
-        private store: Store<fromStore.State>,
-        private router: Router
+        private store: Store<fromStore.State>
     ) { }
 
     ngOnInit() {
@@ -36,9 +34,8 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
-
         this.store.dispatch(new fromStore.LogoutAction());
-        this.router.navigate(['/'])
+        this.store.dispatch(new fromStore.Go({ path: ['/'] }));
     }
 
 }

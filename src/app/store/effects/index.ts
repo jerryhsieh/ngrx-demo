@@ -7,8 +7,10 @@
 //
 
 import { UserEffects } from './user.effects';
+import { RouterEffects } from './router.effects';
 
-export const effects: any[] = [UserEffects];
+export const effects: any[] = [UserEffects, RouterEffects];
 
 
 export * from './user.effects';
+export * from './router.effects';
