@@ -13,8 +13,8 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import { of } from 'rxjs/observable/of';
-import { map } from 'rxjs/operators/map';
-import { catchError } from 'rxjs/operators/catchError';
+import { map, catchError } from 'rxjs/operators';
+
 
 import * as actions from '../actions';
 import { ReportsService } from '../../member/services/reports.service';

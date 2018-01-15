@@ -7,7 +7,7 @@
 //
 
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Router, Route } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
@@ -18,13 +18,9 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-    loginStatus$: Observable<boolean>
     constructor(
         private store: Store<fromStore.State>,
-        private router: Router
-    ) {
-        this.loginStatus$ = this.store.select(fromStore.getIsLogin);
-    }
+    ) { }
 
     canActivate(
         next: ActivatedRouteSnapshot,
@@ -41,10 +37,10 @@ export class AuthGuard implements CanActivate, CanLoad {
 
 
     checkLogin(url: string): Observable<boolean> {
-        return this.loginStatus$.pipe(
+        return this.store.select(fromStore.getIsLogin).pipe(
             tap(status => {
                 if (!status) {
-                    this.router.navigate(['user/login']);
+                    this.store.dispatch(new fromStore.Go({ path: ['user/login'] }));
                 };
                 console.log('current status', status);
             }),

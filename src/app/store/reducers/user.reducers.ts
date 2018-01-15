@@ -27,7 +27,6 @@ export function reducer(state: UsersState = initialState, action: actions.UserAc
             return initialState;
         case actions.LOGIN_SUCCESS:
         case actions.GETUSER_SUCCESS:
-            //return Object.assign({}, state, { currentUser: action.payload, isLogin: true });
             return { ...state, currentUser: action.payload, isLogin: true };
         default:
             return state
