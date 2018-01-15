@@ -33,6 +33,8 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { environment } from '../environments/environment';
 import * as fromStore from './store';
 
+import { ReportsService } from './member/services/reports.service';
+
 export function startupServiceFactory(startupService: StartupService): Function { return () => startupService.load(); }
 
 @NgModule({
@@ -64,6 +66,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     providers: [
         AuthGuard,
         UtilsService,
+        ReportsService,
         StartupService,
         {
             provide: APP_INITIALIZER,

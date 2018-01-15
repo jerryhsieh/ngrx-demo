@@ -6,31 +6,31 @@
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
 
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { ReportsService } from '../services/reports.service';
 import { Report } from '../../models';
 import { Observable } from 'rxjs/Observable';
 
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 @Component({
     selector: 'app-report-list',
     templateUrl: './report-list.component.html',
-    styleUrls: ['./report-list.component.css']
+    styleUrls: ['./report-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReportListComponent implements OnInit {
     reports$: Observable<Report[]>;
     constructor(
-        private reportService: ReportsService,
-        private router: Router
+        private store: Store<fromStore.State>
     ) { }
 
     ngOnInit() {
-        this.reports$ = this.reportService.getReports();
+        this.reports$ = this.store.select(fromStore.getReports);
     }
 
     onClick(report: Report) {
-        this.router.navigate(['/member/report', report.id]);
+        this.store.dispatch(new fromStore.Go({ path: ['/member/report', report.id] }));
     }
 }

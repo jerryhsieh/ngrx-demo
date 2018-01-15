@@ -6,29 +6,29 @@
 // Copyright (C) 2018 by Jerry Hsieh. All rights reserved
 //
 
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { ReportsService } from '../services/reports.service';
 import { Report } from '../../models';
 import { Observable } from 'rxjs/Observable';
+
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 @Component({
     selector: 'app-report',
     templateUrl: './report.component.html',
-    styleUrls: ['./report.component.css']
+    styleUrls: ['./report.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReportComponent implements OnInit {
 
     report$: Observable<Report>;
     constructor(
-        private reportService: ReportsService,
-        private route: ActivatedRoute
+        private store: Store<fromStore.State>
     ) { }
 
     ngOnInit() {
-        let id = this.route.snapshot.paramMap.get('rptId');
-        this.report$ = this.reportService.getReport(+id);
+        this.report$ = this.store.select(fromStore.getSelectedReport);
     }
 
 }
